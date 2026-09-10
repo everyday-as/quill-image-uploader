@@ -1,10 +1,10 @@
 import Quill from 'quill';
 
-const InlineBlot = Quill.import('blots/block');
+const Embed = Quill.import('blots/embed');
 
-class LoadingImage extends InlineBlot {
+class LoadingImage extends Embed {
   static create(src) {
-    const node = super.create(src);
+    const node = super.create();
     if (src === true) return node;
 
     const image = document.createElement('img');
@@ -13,14 +13,8 @@ class LoadingImage extends InlineBlot {
     return node;
   }
 
-  deleteAt(index, length) {
-    super.deleteAt(index, length);
-    this.cache = {};
-  }
-
   static value(domNode) {
-    const { src, custom } = domNode.dataset;
-    return { src, custom };
+    return domNode.querySelector('img')?.getAttribute('src') || '';
   }
 }
 
