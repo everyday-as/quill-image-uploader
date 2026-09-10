@@ -14,7 +14,8 @@ class LoadingImage extends Embed {
   }
 
   static value(domNode) {
-    return domNode.querySelector('img')?.getAttribute('src') || '';
+    const image = domNode.querySelector('img');
+    return image ? image.getAttribute('src') : '';
   }
 }
 
